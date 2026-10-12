@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAESAR - تصميم وتطوير مواقع إلكترونية</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- خلفية جزيئات -->
+    <div id="particle-background"></div>
+    
+    <!--navbar-->
+    <nav class="navbar">
+        <div class="logo">
+            <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
+                <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z" stroke="#6C5CE7" stroke-width="3" fill="none"/>
+                <circle cx="50" cy="50" r="8" fill="#6C5CE7"/>
+            </path>
+            <text x="50" y="55" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#6C5CE7">CAESAR</text>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#services">خدمات</a></li>
+            <li><a href="#nexus">مختبر NEXUS</a></li>
+            <li><a href="#process">آلية العمل</a></li>
+            <li><a href="#contact">تواصل</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="https://wa.me/963947740415" class="btn-whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i> واتساب
+            </a>
+            <a href="tel:+963947740415" class="btn-call">
+                <i class="fas fa-phone"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- القسم الرئيسي Hero -->
+    <header class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">CAESAR</div>
+            <h1>نحوّل أفكارك إلى مواقع استثنائية</h1>
+            <p>نصمّم تجارب رقمية عصرية تساعد علامتك التجارية على الظهور باحترافية على الإنترنت</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/963947740415?text=مرحباً%20CAESAR%2C%20أريد%20الاستفسار%20عن%20تصميم%20موقع%20إلكتروني.%20أود%20شرح%20فكريتي%20و%20معرفة%20التفاصيل" class="btn-primary">اطلب موقعك الآن</a>
+                <a href="#services" class="btn-secondary">اكتشف خدماتنا</a>
+            </div>
+        </div>
+        <div class="hero-sphere">
+            <div class="sphere-wrapper">
+                <div class="sphere-inner">
+                    <svg width="200" height="200" viewBox="0 0 100 100" fill="none">
+                        <circle cx="50" cy="50" r="45" stroke="#6C5CE7" stroke-width="2" fill="transparent"/>
+                        <circle cx="50" cy="50" r="35" stroke="#A78BF2" stroke-width="1" fill="transparent" opacity="0.6"/>
+                        <circle cx="50" cy="50" r="25" stroke="#FDFFFC" stroke-width="1" fill="transparent" opacity="0.4"/>
+                        <g transform="translate(50,50)">
+                            <line x1="-20" y1="0" x2="20" y2="0" stroke="#6C5CE7" stroke-width="1" opacity="0.5"/>
+                            <line x1="0" y1="-20" x2="0" y2="20" stroke="#6C5CE7" stroke-width="1" opacity="0.5"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- قسم الخدمات -->
+    <section class="services-section" id="services">
+        <div class="section-header">
+            <span class="section-tag">خدماتنا</span>
+            <h2>ما نقدمه من حلول</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card" data-category="company">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="3" y1="9" x2="21" y2="9"/>
+                        <line x1="9" y1="3" x2="9" y2="21"/>
+                    </svg>
+                </div>
+                <h3>مواقع الشركات</h3>
+                <p>مواقع تعرّف بخدمات الشركة وهويتها، بتصميم احترافي يعكس طموح مؤسستك.</p>
+            </div>
+            <div class="service-card" data-category="store">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                        <line x1="9" y1="9" x2="9.01" y2="9"/>
+                        <line x1="15" y1="9" x2="15.01" y2="9"/>
+                    </svg>
+                </div>
+                <h3>المتاجر الإلكترونية</h3>
+                <p>واجهات عرض منتجات وتجارب تسوق متكاملة، آمنة وسهلة الاستخدام للمتاجر الناجحة.</p>
+            </div>
+            <div class="service-card" data-category="personal">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7">
+                        <path d="M17 21v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2"/>
+                        <line x1="12" y1="5" x2="12" y2="21"/>
+                        <line x1="5" y1="12" x2="21" y2="12"/>
+                    </svg>
+                </div>
+                <h3>المواقع الشخصية</h3>
+                <p>ملفات أعمال ومواقع للمبدعين وصنّاع المحتكي، لتعزيز حضورك الرقمي الشخصي.</p>
+            </div>
+            <div class="service-card" data-category="landing">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                </div>
+                <h3>صفحات الهبوط</h3>
+                <p>صفحات مخصصة للإعلانات والحملات التسويقية، مصممة لتحويل الزبائن.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم مختبر NEXUS -->
+    <section class="nexus-section" id="nexus">
+        <div section-header>
+            <span class="section-tag">مختبر NEXUS</span>
+            <h2>أدوات إبداعية</h2>
+        </div>
+        <div class="nexus-tools">
+            <div class="nexus-tool">
+                <div class="tool-header">
+                    <h3>مولّد أسماء</h3>
+                    <i class="fas fa-random tool-icon"></i>
+                </div>
+                <div class="tool-body">
+                    <input type="text" id="name-generator" class="tool-input" placeholder="ابدأ بالكتابة...">
+                    <button id="generate-name-btn" class="tool-btn">توليد اسم</button>
+                    <div id="generated-name" class="tool-output"></button>
+                </div>
+            </div>
+            <div class="nexus-tool">
+                <div class="tool-header">
+                    <h3>مولّد ألوان</h3>
+                    <i class="fas fa-palette tool-icon"></i>
+                </div>
+                <div class="tool-body">
+                    <input type="text" id="color-generator" class="tool-input" placeholder="#... أو كلمة">
+                    <button id="generate-color-btn" class="tool-btn">تولير لون</button>
+                    <div id="generated-color" class="color-preview"></div>
+                    <input type="text" id="color-hex" class="color-hex" readonly placeholder="انسخ الرمز">
+                </div>
+            </div>
+            <div class="nexus-tool">
+                <div class="tool-header">
+                    <h3>مولّد أفكار</h3>
+                    <i class="fas fa-lightbulb tool-icon"></i>
+                </div>
+                <div class="tool-body">
+                    <button id="generate-idea-btn" class="tool-btn">فكرة عشوائية</button>
+                    <div id="generated-idea" class="tool-output"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم آلية العمل -->
+    <section class="process-section" id="process">
+        <div class="section-header">
+            <span class="section-tag">آلية العمل</span>
+            <h2>كيف نعمل معاً</h2>
+        </div>
+        <div class="process-steps">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>التواصل وفهم فكرة العميل</h3>
+                <pنقوم بالاستماع لفكرتك وفهم أهدافك وخططك المستقبلية.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>تحديد متطلبات الموقع</h3>
+                <pنقوم بتحليل الاحتياجات وتحديد الميزات التقنية والتصميمية اللازمة.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>تصميم وتطوير الموقع</h3>
+                <pنقوم بإنشاء التصاميم وتطوير الموقع بتقنيات حديثة.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>مراجعة وتسليم المشروع</h3>
+                <pنقدم لك الموقع النهائي بعد مراجعاتك المتفق عليها ونقوم بالتسليم.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التواصل -->
+    <section class="contact-section" id="contact">
+        <div class="contact-content">
+            <div class="contact-text">
+                <span class="section-tag">تواصل معنا</span>
+                <h2>مشروعك القادم يبدأ من هنا</h2>
+                <p>عندك فكرة موقع؟ تواصل معنا وخلّينا نحولها إلى تجربة رقمية مميزة</p>
+                <div class="contact-details">
+                    <div class="detail-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <span>اتفون:</span>
+                            <a href="tel:+963947740415">+963 94 774 0415</a>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <span>واتساب:</span>
+                            <a href="https://wa.me/963947740415">0947740415</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <input type="text" placeholder="اسمك" required>
+                    <input type="email" placeholder="البريد الإلكتروني" required>
+                    <textarea placeholder="اسمح لي بشرحك فكرتك" rows="3" required></textarea>
+                    <button type="submit" class="btn-primary">إرسال الرسالة</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
+                    <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z" stroke="#6C5CE7" stroke-width="3" fill="none"/>
+                    <circle cx="50" cy="50" r="8" fill="#6C5CE7"/>
+                </svg>
+                <text x="50" y="55" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#6C5CE7">CAESAR</text>
+            </div>
+            <p>وكالة لتصميم وتطوير المواقع الإلكترونية، نحول أفكارك إلى تجارب رقمية استثنائية.</p>
+            <div class="footer-links">
+                <a href="#hero">الصفحة الرئيسية</a>
+                <a href="#services">خدمات</a>
+                <a href="#nexus">مختبر NEXUS</a>
+                <a href="#process">آلية العمل</a>
+                <a href="#contact">تواصل</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="current-year">2025</span> CAESAR. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
