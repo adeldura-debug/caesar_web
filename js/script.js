@@ -1,363 +1,322 @@
-/* JavaScript for CAESAR Website */
+/* ===========================================================
+   CAESAR — Main JavaScript
+   رقم التواصل المعتمد: +963 966 054 055
+   =========================================================== */
 
-// Reduced motion preference
+const WHATSAPP_NUMBER = '963966054055';
+const DEFAULT_WA_MESSAGE =
+    'مرحباً CAESAR، أريد الاستفسار عن تصميم موقع إلكتروني. أود شرح فكرتي ومعرفة التفاصيل.';
+
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initParticles();
     initSmoothScrolling();
     initNexusTools();
-    initHoverEffects();
+    initContactForm();
     initMobileMenu();
     initScrollReveal();
-    initCursorEffect();
+    initHeroParallax();
+    initButtonRipple();
+    setCurrentYear();
 });
 
-// Particle background
+/* ---------------- Particles ---------------- */
 function initParticles() {
     const particleBackground = document.getElementById('particle-background');
     if (!particleBackground) return;
-    
+
     const colors = ['#6C5CE7', '#A78BF2', '#00D4AA', '#FDFFFC'];
-    const particleCount = prefersReducedMotion ? 20 : 50;
-    
+    const particleCount = prefersReducedMotion.matches ? 14 : 42;
+
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'glow-particle';
-        
+
         const size = Math.random() * 4 + 1;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
-        
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        particle.style.background = color;
-        
-        const left = Math.random() * 100;
-        particle.style.left = `${left}%`;
-        
-        const duration = Math.random() * 8 + 6;
-        particle.style.animationDuration = `${duration}s`;
-        particle.style.animationDelay = `${Math.random() * 4}s`;
-        
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.animationDuration = `${Math.random() * 8 + 6}s`;
+        particle.style.animationDelay = `${Math.random() * 6}s`;
+
         particleBackground.appendChild(particle);
     }
 }
 
-// Smooth scrolling for anchor links
+/* ---------------- Smooth scrolling ---------------- */
 function initSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
+        anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
+            if (!targetId || targetId === '#') return;
+
             const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: prefersReducedMotion ? 'auto' : 'smooth',
-                    block: 'start'
-                });
-            }
+            if (!targetElement) return;
+
+            e.preventDefault();
+            targetElement.scrollIntoView({
+                behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
+                block: 'start'
+            });
         });
     });
 }
 
-// Nexus tools
+/* ---------------- NEXUS tools ---------------- */
 function initNexusTools() {
-    // Name generator
-    const nameGenerator = document.getElementById('name-generator');
+    /* --- Name generator --- */
     const generateNameBtn = document.getElementById('generate-name-btn');
     const generatedName = document.getElementById('generated-name');
-    
-    if (nameGenerator && generateNameBtn && generatedName) {
+
+    if (generateNameBtn && generatedName) {
         const names = [
             'Nexus', 'Quantum', 'Vertex', 'Aurora', 'Orion', 'Phoenix',
-            'Helix', 'Nova', 'Zenith', 'Vector', 'Lumina', 'Prism'
+            'Helix', 'Nova', 'Zenith', 'Vector', 'Lumina', 'Prism',
+            'Echo', 'Cipher', 'Aether', 'Pulse', 'Stellar', 'Vanta'
         ];
-        
-        generateNameBtn.addEventListener('click', function() {
-            const randomIndex = Math.floor(Math.random() * names.length);
-            generatedName.textContent = names[randomIndex];
-            generatedName.style.color = prefersReducedMotion ? '#6C5CE7' : 'var(--accent-purple)';
+
+        generateNameBtn.addEventListener('click', function () {
+            let name = names[Math.floor(Math.random() * names.length)];
+            const suffix = ['Lab', 'Studio', 'X', 'Core', 'Works', 'Hub', 'Verse'];
+            name += ' ' + suffix[Math.floor(Math.random() * suffix.length)];
+            generatedName.textContent = name;
+            generatedName.style.opacity = '0';
+            requestAnimationFrame(() => {
+                generatedName.style.transition = 'opacity .35s ease';
+                generatedName.style.opacity = '1';
+            });
         });
-        
-        // Trigger first generation
-        if (!prefersReducedMotion) {
-            generateNameBtn.click();
-        }
     }
-    
-    // Color generator
-    const colorGenerator = document.getElementById('color-generator');
+
+    /* --- Color generator (copyable HEX) --- */
     const generateColorBtn = document.getElementById('generate-color-btn');
     const generatedColor = document.getElementById('generated-color');
     const colorHex = document.getElementById('color-hex');
-    
-    if (colorGenerator && generateColorBtn && generatedColor && colorHex) {
-        const colorList = ['#6C5CE7', '#A78BF2', '#00D4AA', '#FF6B6B', '#FDFFFC', '#FF8C42'];
-        
-        generateColorBtn.addEventListener('click', function() {
-            const randomColor = colorList[Math.floor(Math.random() * colorList.length)];
-            generatedColor.style.background = randomColor;
-            colorHex.value = randomColor;
-            colorHex.style.background = randomColor;
-        });
-        
-        // Trigger first generation
-        generateColorBtn.click();
+
+    if (generateColorBtn && generatedColor && colorHex) {
+        const colorList = ['#6C5CE7', '#A78BF2', '#00D4AA', '#FF6B6B', '#FDFFFC', '#FF8C42', '#1E90FF', '#B388FF'];
+
+        const applyRandomColor = function () {
+            const color = colorList[Math.floor(Math.random() * colorList.length)];
+            generatedColor.style.background = color;
+            generatedColor.style.color = color === '#FDFFFC' ? '#111' : '#fff';
+            generatedColor.textContent = color;
+            colorHex.value = color;
+            colorHex.style.background = color;
+            colorHex.style.color = color === '#FDFFFC' ? '#111' : '#fff';
+        };
+
+        generateColorBtn.addEventListener('click', applyRandomColor);
+        applyRandomColor();
+
+        const copyHex = function () {
+            if (!colorHex.value) return;
+            const done = function () {
+                const previous = colorHex.value;
+                colorHex.value = 'تم النسخ ✓';
+                setTimeout(() => { colorHex.value = previous; }, 1200);
+            };
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(colorHex.value).then(done).catch(fallbackCopy);
+            } else {
+                fallbackCopy();
+            }
+
+            function fallbackCopy() {
+                colorHex.removeAttribute('readonly');
+                colorHex.select();
+                try { document.execCommand('copy'); done(); } catch (e) { /* ignore */ }
+                colorHex.setAttribute('readonly', 'readonly');
+            }
+        };
+
+        colorHex.addEventListener('click', copyHex);
     }
-    
-    // Idea generator
+
+    /* --- Idea generator --- */
     const ideaGenerator = document.getElementById('generate-idea-btn');
     const generatedIdea = document.getElementById('generated-idea');
-    
+
     if (ideaGenerator && generatedIdea) {
         const ideas = [
-            'استخدم الألوان المتوهجة لجذب الانتباه',
-            'صمم بتجربة مستخدم بديهية',
-            'ركز على التوافق على الأجهزة المحمولة',
-            'أضف تفاعلات خفيفة وجميلة',
-            'اجعل التنقل سهلاً ومنطقياً',
-            'استخدم الفراغ الإيجابي بذكاء'
+            'ابدأ بهوية بصرية واضحة: شعار، ألوان، وخط موحّد.',
+            'اجعل صفحة البداية تُجيب على سؤال: ماذا أستفيد من هذا الموقع؟',
+            'استخدم صوراً حقيقية عالية الجودة بدل الصور العامة.',
+            'قلّل عدد الخطوات بين الزائر وطلب الخدمة إلى خطوة واحدة.',
+            'صمّم نسخة الموبايل أولاً ثم وسّعها للشاشات الكبيرة.',
+            'أضف قسم أسئلة شائعة يقلّل استفسارات العملاء المتكررة.',
+            'اجعل سرعة التحميل أولوية: صور مضغوطة وخطوط خفيفة.',
+            'ضع دعوة واضحة للتواصل في نهاية كل قسم من الصفحة.'
         ];
-        
-        ideaGenerator.addEventListener('click', function() {
-            const randomIndex = Math.floor(Math.random() * ideas.length);
-            generatedIdea.textContent = ideas[randomIndex];
-            generatedIdea.style.color = prefersReducedMotion ? '#a8a8d8' : 'var(--text-secondary)';
+
+        ideaGenerator.addEventListener('click', function () {
+            generatedIdea.textContent = ideas[Math.floor(Math.random() * ideas.length)];
+            generatedIdea.style.opacity = '0';
+            requestAnimationFrame(() => {
+                generatedIdea.style.transition = 'opacity .35s ease';
+                generatedIdea.style.opacity = '1';
+            });
         });
-        
-        // Trigger first generation
-        if (!prefersReducedMotion) {
-            ideaGenerator.click();
+    }
+}
+
+/* ---------------- Contact form → WhatsApp ---------------- */
+function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    const nameField = document.getElementById('contact-name');
+    const emailField = document.getElementById('contact-email');
+    const messageField = document.getElementById('contact-message');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name = nameField ? nameField.value.trim() : '';
+        const email = emailField ? emailField.value.trim() : '';
+        const message = messageField ? messageField.value.trim() : '';
+
+        // Validate required fields (name + message)
+        let invalid = false;
+        [nameField, messageField].forEach(field => {
+            if (!field) return;
+            if (!field.value.trim()) {
+                field.style.borderColor = '#FF6B6B';
+                invalid = true;
+            } else {
+                field.style.borderColor = '';
+            }
+        });
+        if (invalid) {
+            (nameField && !name ? nameField : messageField).focus();
+            return;
         }
-    }
-}
 
-// Hover effects
-function initHoverEffects() {
-    // Card hover effects already handled in CSS
-    // Add ripple effect to buttons
-    const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .tool-btn');
-    
-    buttons.forEach(button => {
-        button.addEventListener('mouseenter', function() {
-            if (prefersReducedMotion) return;
-            
-            const ripple = document.createElement('span');
-            ripple.className = 'ripple';
-            this.style.position = 'relative';
-            this.style.overflow = 'hidden';
-            
-            const rect = this.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            
-            ripple.style.left = `${x}px`;
-            ripple.style.top = `${y}px`;
-            ripple.style.width = '0';
-            ripple.style.height = '0';
-            ripple.style.background = 'rgba(255, 255, 255, 0.3)';
-            ripple.style.borderRadius = '50%';
-            ripple.style.transition = 'width 0.5s, height 0.5s, opacity 0.5s';
-            ripple.style.position = 'absolute';
-            ripple.style.left = '0';
-            ripple.style.top = '0';
-            ripple.style.opacity = '0.6';
-            
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 500);
+        let text = 'مرحباً CAESAR، أريد الاستفسار عن تصميم موقع إلكتروني.';
+        text += '\n\nالاسم: ' + name;
+        if (email) text += '\nالبريد الإلكتروني: ' + email;
+        text += '\nفكرتي والتفاصيل: ' + message;
+
+        const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text);
+        window.open(url, '_blank', 'noopener');
+    });
+
+    // Clear error highlight while typing
+    [nameField, messageField].forEach(field => {
+        if (!field) return;
+        field.addEventListener('input', function () {
+            if (this.value.trim()) this.style.borderColor = '';
         });
     });
 }
 
-// Mobile menu
+/* ---------------- Mobile menu ---------------- */
 function initMobileMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    const hamburger = document.createElement('div');
-    
-    hamburger.className = 'hamburger';
-    hamburger.innerHTML = '<span></span><span></span><span></span>';
-    hamburger.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
-        this.classList.toggle('active');
-    });
-    
-    // Insert hamburger before nav-actions
     const nav = document.querySelector('.navbar');
-    if (nav && navActions) {
-        nav.insertBefore(hamburger, nav.querySelector('.nav-actions'));
-    }
-    
-    // Close mobile menu when link clicked
+    const navLinks = document.querySelector('.nav-links');
+    if (!nav || !navLinks) return;
+
+    const hamburger = document.createElement('button');
+    hamburger.type = 'button';
+    hamburger.className = 'hamburger';
+    hamburger.setAttribute('aria-label', 'فتح القائمة');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.innerHTML = '<span></span><span></span><span></span>';
+
+    hamburger.addEventListener('click', function () {
+        const isOpen = navLinks.classList.toggle('active');
+        this.classList.toggle('active', isOpen);
+        this.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    const navActions = nav.querySelector('.nav-actions');
+    nav.insertBefore(hamburger, navActions);
+
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
         });
     });
 }
 
-// Scroll reveal animations
+/* ---------------- Scroll reveal ---------------- */
 function initScrollReveal() {
-    const revealElements = document.querySelectorAll('.service-card, .nexus-tool, .step-card, .detail-item');
-    
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    if (!prefersReducedMotion) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        revealElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-    }
-}
+    if (prefersReducedMotion.matches || !('IntersectionObserver' in window)) return;
 
-// Cursor effect
-function initCursorEffect() {
-    if (prefersReducedMotion) return;
-    
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    document.body.appendChild(cursor);
-    
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-    
-    function animateCursor() {
-        cursorX += (mouseX - cursorX) * 0.15;
-        cursorY += (mouseY - cursorY) * 0.15;
-        cursor.style.left = `${cursorX - 10}px`;
-        cursor.style.top = `${cursorY - 10}px`;
-        requestAnimationFrame(animateCursor);
-    }
-    
-    animateCursor();
-    
-    // Hover effects
-    const hoverElements = document.querySelectorAll('a, .service-card, .tool-btn');
-    hoverElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'scale(1.5)';
-            cursor.style.background = 'var(--accent-purple)';
+    const revealElements = document.querySelectorAll(
+        '.service-card, .nexus-tool, .step-card, .detail-item, .contact-buttons'
+    );
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
         });
-        
-        el.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'scale(1)';
-            cursor.style.background = '';
-        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity .6s ease, transform .6s ease';
+        observer.observe(el);
     });
 }
 
-// Add ripple styles dynamically
-const rippleStyle = document.createElement('style');
-rippleStyle.textContent = `
-    .ripple {
-        animation: rippleEffect 0.6s ease-out;
-    }
-    @keyframes rippleEffect {
-        to {
-            width: 200%;
-            height: 200%;
-            opacity: 0;
-        }
-    }
-    .custom-cursor {
-        width: 20px;
-        height: 20px;
-        background: var(--accent-purple);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition: transform 0.2s ease, background 0.2s ease;
-    }
-`;
-document.head.appendChild(rippleStyle);
+/* ---------------- Hero sphere responds to mouse ---------------- */
+function initHeroParallax() {
+    const sphere = document.querySelector('.hero-sphere');
+    if (!sphere || prefersReducedMotion.matches || window.matchMedia('(pointer: coarse)').matches) return;
 
-// Add custom cursor CSS
-const cursorStyle = document.createElement('style');
-cursorStyle.textContent = `
-    .nav-links.active {
-        display: flex;
-        position: fixed;
-        top: 80px;
-        left: 5%;
-        flex-direction: column;
-        background: var(--bg-secondary);
-        border: 1px solid var(--glass-border);
-        border-radius: 20px;
-        padding: 20px;
-        width: 80%;
-        max-width: 400px;
-        backdrop-filter: blur(10px);
-    }
-    .hamburger {
-        width: 30px;
-        height: 20px;
-        position: relative;
-        cursor: pointer;
-    }
-    .hamburger span {
-        display: block;
-        position: absolute;
-        height: 2px;
-        width: 100%;
-        background: var(--text-primary);
-        left: 0;
-        transform: rotate(0deg);
-        transition: .25s ease-in-out;
-    }
-    .hamburger span:nth-child(1) { top: 0px; }
-    .hamburger span:nth-child(2) { top: 8px; }
-    .hamburger span:nth-child(3) { top: 16px; }
-    .hamburger.active span:nth-child(1) { top: 8px; transform: rotate(135deg); }
-    .hamburger.active span:nth-child(2) { opacity: 0; top: 8px; }
-    .hamburger.active span:nth-child(3) { top: 8px; transform: rotate(-135deg); }
-`;
-document.head.appendChild(cursorStyle);
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
 
-// Add theme toggle button
-const themeToggle = document.createElement('button');
-themeToggle.className = 'theme-toggle';
-themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-themeToggle.innerHTML += '<i class="fas fa-sun"></i>';
-themeToggle.style.display = 'none'; // Hidden for now, can be enabled later
-themeToggle.addEventListener('click', function() {
-    document.body.classList.toggle('dark-mode');
-});
-document.body.appendChild(themeToggle);
+    hero.addEventListener('mousemove', function (e) {
+        const rect = hero.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-// Add dark mode styles if needed
-const darkModeStyle = document.createElement('style');
-darkModeStyle.textContent = `
-    .dark-mode {
-        --bg-primary: #12121c;
-        --bg-secondary: #1a1a28;
-    }
-`;
-document.head.appendChild(darkModeStyle);
+        sphere.style.transform =
+            `translateY(-50%) translate(${x * 26}px, ${y * 26}px) rotate(${x * 6}deg)`;
+    });
+
+    hero.addEventListener('mouseleave', function () {
+        sphere.style.transform = 'translateY(-50%)';
+    });
+}
+
+/* ---------------- Button ripple ---------------- */
+function initButtonRipple() {
+    if (prefersReducedMotion.matches) return;
+
+    const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .tool-btn');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function (e) {
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+            ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 650);
+        });
+    });
+}
+
+/* ---------------- Auto copyright year ---------------- */
+function setCurrentYear() {
+    const yearEl = document.getElementById('current-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+}

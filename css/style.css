@@ -770,3 +770,237 @@ body {
         margin-top: 20px;
     }
 }
+
+/* =========================================================
+   Layout fixes + new components
+   ========================================================= */
+
+/* Navbar layout */
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 16px 5%;
+}
+
+.navbar .logo {
+    flex-shrink: 0;
+}
+
+.nav-links {
+    flex: 1;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-actions {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* Hamburger button */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Contact CTA buttons */
+.contact-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 30px;
+}
+
+.contact-buttons .btn-primary,
+.contact-buttons .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 26px;
+}
+
+.form-note {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Tool output */
+.tool-output {
+    margin-top: 18px;
+    min-height: 30px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+}
+
+.color-preview {
+    transition: background 0.35s ease;
+    font-weight: 700;
+}
+
+.color-hex {
+    cursor: copy;
+}
+
+/* Ripple */
+.btn-primary,
+.btn-secondary,
+.tool-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(0);
+    opacity: 0.8;
+    pointer-events: none;
+    animation: rippleAnim 0.65s ease-out forwards;
+}
+
+@keyframes rippleAnim {
+    to {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+/* Mobile navigation */
+@media (max-width: 900px) {
+    .navbar {
+        gap: 12px;
+        padding: 12px 4%;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 74px;
+        right: 4%;
+        left: 4%;
+        flex-direction: column;
+        gap: 4px;
+        padding: 18px;
+        background: rgba(16, 16, 26, 0.97);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        backdrop-filter: blur(18px);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+        z-index: 1200;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 12px 10px;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+
+    .nav-links a:hover {
+        background: rgba(108, 92, 231, 0.15);
+    }
+
+    .nav-actions {
+        margin-inline-start: auto;
+        gap: 8px;
+    }
+
+    .btn-whatsapp,
+    .btn-call {
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 0;
+    }
+
+    .btn-whatsapp i,
+    .btn-call i {
+        font-size: 1.05rem;
+    }
+
+    .hero-sphere {
+        width: 280px;
+        height: 280px;
+        right: -60px;
+        opacity: 0.7;
+    }
+
+    .contact-buttons {
+        justify-content: center;
+    }
+
+    .contact-buttons .btn-primary,
+    .contact-buttons .btn-secondary {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar .logo {
+        font-size: 1.4rem;
+    }
+
+    .navbar .logo svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    .hero h1 {
+        font-size: 2.35rem;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+    }
+}
